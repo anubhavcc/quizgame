@@ -1,2 +1,2 @@
 # quizgame
-This a football quiz
+This a general quiz
