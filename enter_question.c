@@ -1,12 +1,13 @@
 /*This program is written to insert quiz questions into a binary file*/
 
-#include <stdio.>
+#include <stdio.h>
+#include<stdio.h>
 #include "func.h"
 
 int 
 main()
 {
-    int counter;
+    int counter=0,noOfQuestions;size_t len;
     FILE *ptr;
     struct quiz_format record;
     ptr=fopen("test.bin", "wb");
@@ -15,22 +16,27 @@ main()
         printf("Unable to open file\n");
         return 1;
     }
-    for(counter=1; counter<=20; counter++) {
+	printf("Enter the number of questions\n");
+	scanf("%d",&noOfQuestions);
+
+    while(counter != noOfQuestions) {
         printf("Enter the question no\n");
-        scanf("%d", record.question_no);
+        scanf("%d", &record.question_no);
+		getchar();
         printf("Enter the question\n");
-        scanf("%s", record.question);
+		fgets(record.question,sizeof(record.question),stdin);
         printf("Enter the option 1\n");
-        scanf("%s", record.option_1);
+		fgets(record.option_1,sizeof(record.option_1),stdin);
         printf("Enter the option 2\n");
-        scanf("%s", record.option_2);
+		fgets(record.option_2,sizeof(record.option_2),stdin);
         printf("Enter the option 3\n");
-        scanf("%s", record.option_3);
+		fgets(record.option_3,sizeof(record.option_3),stdin);
         printf("Enter the option 4\n");
-        scanf("%s", record.option_4);
-        printf("Enter the question answer\n)";
-        scanf("%s", record.question_answer);
+		fgets(record.option_4,sizeof(record.option_4),stdin);
+        printf("Enter the question answer\n");
+		scanf("%s",&record.question_answer);
         fwrite(&record, sizeof(struct quiz_format), 1, ptr);
+		counter++;
     }
     fclose(ptr);
     return 0;
