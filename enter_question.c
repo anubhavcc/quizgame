@@ -1,6 +1,6 @@
 /*This program is written to insert quiz questions into a binary file*/
 
-#include <stdio.>
+#include <stdio.h>
 #include "func.h"
 
 int 
