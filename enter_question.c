@@ -20,20 +20,22 @@ main()
 
      while(counter != noOfQuestions) {
      printf("Enter the question no\n");
-     scanf("%d", &record.question_no);
+    //scanf("%d", &record.question_no);
      getchar();
+   
      printf("Enter the question\n");
-     fgets(record.question,sizeof(record.question),stdin);
+     fgets(record.question,100,stdin);
+     
      printf("Enter the option 1\n");
-     fgets(record.option_1,sizeof(record.option_1),stdin);
+     fgets(record.option_1,100,stdin);
      printf("Enter the option 2\n");
-     fgets(record.option_2,sizeof(record.option_2),stdin);
+     fgets(record.option_2,100,stdin);
      printf("Enter the option 3\n");
-     fgets(record.option_3,sizeof(record.option_3),stdin);
+     fgets(record.option_3,100,stdin);
      printf("Enter the option 4\n");
-     fgets(record.option_4,sizeof(record.option_4),stdin);
+     fgets(record.option_4,100,stdin);
      printf("Enter the question answer\n");
-     scanf("%s",&record.question_answer);
+     scanf("%d",&record.question_answer);
      fwrite(&record, sizeof(struct quiz_format), 1, ptr);
      counter++;
      }
