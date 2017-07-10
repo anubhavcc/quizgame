@@ -1,1 +1,0 @@
-/usr/bin/cc     CMakeFiles/play.dir/Quiz_main.c.o CMakeFiles/play.dir/func.c.o  -o play -rdynamic -lcurses -lmenu 
