@@ -23,6 +23,6 @@
 
    To Build
 
-   cmake -Bbuild -H.
+   first execute  " cmake -Bbuild -H."  and then execute  " make -C build"
 
 
