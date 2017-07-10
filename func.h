@@ -1,3 +1,8 @@
+/*
+
+In this file we are declaring the structure for the quiz format , declaring the options variable and declaring the two functions.
+
+*/ 
 
 #ifndef FUNC_H
 #define FUNC_H
