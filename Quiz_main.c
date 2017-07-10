@@ -1,21 +1,38 @@
+/*
+
+This is the file containing the main function.In this file all the windows and menus are created and initialized
+ and the questions and options are displayed by calling their respective functions. 
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <menu.h>
 #include <unistd.h>
+
+
 #include "curses.h"
 #include "func.h"
+
+
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 #define CTRLD 4
 
-int display_question(WINDOW *question_window,int  count,struct quiz_format detail) {
+
+
+int 
+display_question(WINDOW *question_window, int  count,
+	struct quiz_format detail) 
+{
     mvwprintw(question_window, 1, 1, "%d.", count);
     mvwprintw(question_window, 1, 3, "%s", detail.question);
     box(question_window, 0, 0);
     wrefresh(question_window);
 }
 
-int display_options(WINDOW *option_window, struct quiz_format detail) {
+int display_options(WINDOW *option_window, struct quiz_format detail) 
+{
     mvwprintw(option_window, 2, 5, "%s", detail.option_1);
     mvwprintw(option_window, 3, 5, "%s", detail.option_2);
     mvwprintw(option_window, 4, 5, "%s", detail.option_3);
@@ -41,9 +58,9 @@ main()
     /* Initialize curses */
     initscr();
     start_color();
-    init_pair(1,COLOR_BLACK, COLOR_BLUE);
-    init_pair(2,COLOR_BLACK, COLOR_RED);
-    init_pair(3,COLOR_BLACK, COLOR_GREEN);
+    init_pair(1, COLOR_BLACK, COLOR_BLUE);
+    init_pair(2, COLOR_BLACK, COLOR_RED);
+    init_pair(3, COLOR_BLACK, COLOR_GREEN);
     
     
     /*changes background colour to blue*/
@@ -79,6 +96,8 @@ main()
 
     /*opening file for reading purpose*/
     ptr_file = fopen("tes.bin", "rb");
+    
+    
     if (!ptr_file) {
          printf("Unable to open file\n");
          return 1;
@@ -136,7 +155,7 @@ main()
                         menu_driver(my_menu, REQ_RIGHT_ITEM);
                         break;
                 case 10:
-                        if(strcmp((item_name(current_item(my_menu))),detail.question_answer)==0) {
+                        if(strcmp((item_name(current_item(my_menu))), detail.question_answer)==0) {
                         
                             /*changes bacground colour to green*/
                             wbkgd(stdscr, COLOR_PAIR(3));
@@ -149,11 +168,9 @@ main()
                             attron(COLOR_PAIR(1));
                             mvprintw(10, 60, "PRESS ANY KEY TO CONTINUE");
                             attroff(COLOR_PAIR(1));
-    			    refresh();
-                        }
-                        else {
+    			    		refresh();
+                        } else {
                         
-                            
                             /*changes bacground colour to red*/
                             wbkgd(stdscr, COLOR_PAIR(2));
                             
@@ -165,13 +182,17 @@ main()
                             attron(COLOR_PAIR(1));
                             mvprintw(10, 60, "PRESS ANY KEY TO CONTINUE");
                             attroff(COLOR_PAIR(1));
-    			    refresh();
+    			    		refresh();
                         }
+                        
+                        
                         /*control of the program goes to the next question*/
                         next_question = 1;
                         break;
             }
+            
             display_options(my_menu_window,  detail);
+            
         }
         /*Unpost and free all the memory taken up */
         unpost_menu(my_menu);
