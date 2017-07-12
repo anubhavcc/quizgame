@@ -7,9 +7,7 @@ The questions and options are then written to a binary file.
 
 #include <stdio.h>
 
-
-
-#include "func.h"
+#include "display_quiz.h"
 
 int 
 main()
