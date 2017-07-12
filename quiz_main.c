@@ -11,16 +11,13 @@ This is the file containing the main function.In this file all the windows and m
 #include <menu.h>
 #include <unistd.h>
 
-
 #include "curses.h"
-/* Is this required? */
-#include "func.h"
+#include "display_quiz.h"
 
-/* Remove additional blank spaces */
-
-/* Use a macro when it is required multiple times */
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define CTRLD 4
+#define NO_OF_ROWS_IN_MENU 6
+#define NO_OF_COLUMNS_IN_MENU 38
+#define ROW_OF_MENU_START_IN_WINDOW 1
+#define COLUMN_OF_MENU_START_IN_WINDOW 2
 
 char *option[] =  {
       
@@ -29,7 +26,6 @@ char *option[] =  {
                              (char *)NULL,
          
                   };
-
 
 int
 main()
@@ -61,10 +57,15 @@ main()
     keypad(stdscr, TRUE);
 
     /* Create items for the menu */
-    n_options = ARRAY_SIZE(option);
+    n_options = sizeof(option);
     my_items = (ITEM**)calloc(n_options, sizeof(ITEM*));
 
-    /* What if my_items return null? Check if non null or exit */
+    if (!my_items) {
+
+        perror("Items is null\n");
+        exit(0);
+
+        }
 
     attron(COLOR_PAIR(1));
     mvprintw(0, 60, "QUIZ GAME");
@@ -85,16 +86,16 @@ main()
     
     
     if (!ptr_file) {
-        /* Use perror and exit */
-         printf("Unable to open file\n");
-         return 1;
+        
+         perror("Unable to open file\n");
+         exit(0);
+
       }
       
-    /* Indentation should be like this */
+    
     for(count = 1; count <= 5; count++) {
 
-     /* Leave a white space in comments */
-    	/*changes background colour to blue*/
+    	/* changes background colour to blue */
         wbkgd(stdscr, COLOR_PAIR(1));
         refresh();
         next_question = 0;
@@ -114,8 +115,9 @@ main()
 
         /* Set main window and sub window */
         set_menu_win(my_menu, my_menu_window);
-        /* What does 6, 38, 2, 1 mean? Use a #define to spell it out */
-        set_menu_sub(my_menu, derwin(my_menu_window, 6, 38, 2, 1));
+        
+        set_menu_sub(my_menu, derwin(my_menu_window, NO_OF_ROWS_IN_MENU, NO_OF_COLUMNS_IN_MENU,
+                                        COLUMN_OF_MENU_START_IN_WINDOW, ROW_OF_MENU_START_IN_WINDOW));
         set_menu_format(my_menu, 4, 1);
         set_menu_mark(my_menu, "*");
         set_menu_spacing(my_menu, 1, 1, 1);
@@ -131,7 +133,7 @@ main()
         display_options(my_menu_window, detail); 
 
         while((c = wgetch(my_menu_window)) != 'z' && next_question == 0) {
-            /* Switch indentation should be like */
+            
             switch(c)
             {
             case KEY_DOWN:
@@ -140,42 +142,45 @@ main()
             case KEY_UP:
                 menu_driver(my_menu, REQ_UP_ITEM);
             break;
-                case KEY_LEFT:
-                        menu_driver(my_menu, REQ_LEFT_ITEM);
-                        break;
-                case KEY_RIGHT:
-                        menu_driver(my_menu, REQ_RIGHT_ITEM);
-                        break;
-                case 10:
-                        if(strcmp((item_name(current_item(my_menu))), detail.question_answer)==0) {
+            case KEY_LEFT:
+                menu_driver(my_menu, REQ_LEFT_ITEM);
+            break;
+            case KEY_RIGHT:
+                menu_driver(my_menu, REQ_RIGHT_ITEM);
+            break;
+            case 10:
+                if(strcmp((item_name(current_item(my_menu))), detail.question_answer)==0) {
                         
-                            /*changes bacground colour to green*/
-                            wbkgd(stdscr, COLOR_PAIR(3));
-                            
+                            /*changes background colour to green*/
+                            wbkgd(stdscr, COLOR_PAIR(3)); 
                             refresh();
+
                             mvwprintw(my_question_window, 5, 2, "correct answer");
+
                             display_question(my_question_window, count, detail);
                             display_options(my_menu_window, detail);
-                            wrefresh(my_question_window);
+                            
                             attron(COLOR_PAIR(1));
                             mvprintw(10, 60, "PRESS ANY KEY TO CONTINUE");
                             attroff(COLOR_PAIR(1));
-                         /* Fix indentation. Difficult to read */
     			    		refresh();
+
                         } else {
                         
-                            /*changes bacground colour to red*/
+                            /*changes background colour to red*/
                             wbkgd(stdscr, COLOR_PAIR(2));
-                            
                             refresh();
+
                             mvwprintw(my_question_window, 5, 2, "wrong answer");
+
                             display_question(my_question_window, count, detail);
                             display_options(my_menu_window, detail);
-                            wrefresh(my_question_window);
+
                             attron(COLOR_PAIR(1));
                             mvprintw(10, 60, "PRESS ANY KEY TO CONTINUE");
                             attroff(COLOR_PAIR(1));
     			    		refresh();
+
                         }
                         
                         
