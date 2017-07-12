@@ -2,6 +2,7 @@
 
 
 This file contains the definition of two functions display_question and display_option.
+What does that function do? Mention that.
 
 
 */
@@ -14,7 +15,7 @@ This file contains the definition of two functions display_question and display_
 
 #include "func.h"
 
-
+/* Why int and not void? */
 int 
 display_question(WINDOW *question_window, int  count, struct quiz_format detail) 
 {
