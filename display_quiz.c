@@ -3,6 +3,8 @@
 
 This file contains the definition of two functions display_question and display_option.
 
+display_question : This function prints the question and question number to the question window
+display_options  : This function prints the options  to the menu window
 
 */
 
@@ -11,11 +13,10 @@ This file contains the definition of two functions display_question and display_
 #include <menu.h>
 #include <curses.h>
 
+#include "display_quiz.h"
 
-#include "func.h"
 
-
-int 
+void 
 display_question(WINDOW *question_window, int  count, struct quiz_format detail) 
 {
     mvwprintw(question_window, 1, 1, "%d.", count);
@@ -23,10 +24,10 @@ display_question(WINDOW *question_window, int  count, struct quiz_format detail)
     
     box(question_window, 0, 0);
     wrefresh(question_window);
-    return 0;
+    
 }
 
-int 
+void
 display_options(WINDOW *option_window, struct quiz_format detail) 
 {
     mvwprintw(option_window, 2, 5, "%s", detail.option_1);
@@ -36,7 +37,7 @@ display_options(WINDOW *option_window, struct quiz_format detail)
     
     box(option_window, 0, 0);
     wrefresh(option_window);
-    return 0;
+   
 }
 
 
