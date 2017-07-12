@@ -13,9 +13,12 @@ This is the file containing the main function.In this file all the windows and m
 
 
 #include "curses.h"
+/* Is this required? */
 #include "func.h"
 
+/* Remove additional blank spaces */
 
+/* Use a macro when it is required multiple times */
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 #define CTRLD 4
 
@@ -53,24 +56,20 @@ main()
     wbkgd(stdscr, COLOR_PAIR(1));
     refresh();
     
-    
     cbreak();
     noecho();
     keypad(stdscr, TRUE);
-
 
     /* Create items for the menu */
     n_options = ARRAY_SIZE(option);
     my_items = (ITEM**)calloc(n_options, sizeof(ITEM*));
 
-
     attron(COLOR_PAIR(1));
     mvprintw(0, 60, "QUIZ GAME");
     attroff(COLOR_PAIR(1));
     refresh();
-    
 
-    /*creating question window and menu window*/ 
+    /* creating question window and menu window */ 
     my_question_window = newwin(10, 100, 4, 6);
     my_menu_window = newwin(10, 40, 20, 6);
     box(my_question_window, 0, 0);
@@ -78,7 +77,6 @@ main()
     keypad(my_menu_window, TRUE);
     wrefresh(my_question_window);
     wrefresh(my_menu_window);
-
 
     /*opening file for reading purpose*/
     ptr_file = fopen("tes.bin", "rb");
@@ -90,6 +88,7 @@ main()
       }
       
     for( count=1; count<=5; count++) {
+     /* Leave a white space in comments */
     	/*changes background colour to blue*/
         wbkgd(stdscr, COLOR_PAIR(1));
         refresh();
@@ -154,6 +153,7 @@ main()
                             attron(COLOR_PAIR(1));
                             mvprintw(10, 60, "PRESS ANY KEY TO CONTINUE");
                             attroff(COLOR_PAIR(1));
+                         /* Fix indentation. Difficult to read */
     			    		refresh();
                         } else {
                         
