@@ -64,6 +64,8 @@ main()
     n_options = ARRAY_SIZE(option);
     my_items = (ITEM**)calloc(n_options, sizeof(ITEM*));
 
+    /* What if my_items return null? Check if non null or exit */
+
     attron(COLOR_PAIR(1));
     mvprintw(0, 60, "QUIZ GAME");
     attroff(COLOR_PAIR(1));
@@ -83,11 +85,14 @@ main()
     
     
     if (!ptr_file) {
+        /* Use perror and exit */
          printf("Unable to open file\n");
          return 1;
       }
       
-    for( count=1; count<=5; count++) {
+    /* Indentation should be like this */
+    for(count = 1; count <= 5; count++) {
+
      /* Leave a white space in comments */
     	/*changes background colour to blue*/
         wbkgd(stdscr, COLOR_PAIR(1));
@@ -109,6 +114,7 @@ main()
 
         /* Set main window and sub window */
         set_menu_win(my_menu, my_menu_window);
+        /* What does 6, 38, 2, 1 mean? Use a #define to spell it out */
         set_menu_sub(my_menu, derwin(my_menu_window, 6, 38, 2, 1));
         set_menu_format(my_menu, 4, 1);
         set_menu_mark(my_menu, "*");
@@ -125,14 +131,15 @@ main()
         display_options(my_menu_window, detail); 
 
         while((c = wgetch(my_menu_window)) != 'z' && next_question == 0) {
+            /* Switch indentation should be like */
             switch(c)
             {
-                case KEY_DOWN:
-                        menu_driver(my_menu, REQ_DOWN_ITEM);
-                        break;
-                case KEY_UP:
-                        menu_driver(my_menu, REQ_UP_ITEM);
-                        break;
+            case KEY_DOWN:
+                menu_driver(my_menu, REQ_DOWN_ITEM);
+            break;
+            case KEY_UP:
+                menu_driver(my_menu, REQ_UP_ITEM);
+            break;
                 case KEY_LEFT:
                         menu_driver(my_menu, REQ_LEFT_ITEM);
                         break;
