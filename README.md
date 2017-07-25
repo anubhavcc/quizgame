@@ -25,4 +25,7 @@
 
    first execute  " cmake -Bbuild -H."  and then execute  " make -C build"
 
+	OR
 
+	make && sudo make install. after which quiz can be played by executing "play" executable in the directory in which
+	project is there currently.
