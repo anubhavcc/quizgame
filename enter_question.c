@@ -6,7 +6,7 @@ The questions and options are then written to a binary file.
 */ 
 
 #include <stdio.h>
-
+#include <string.h>
 #include "display_quiz.h"
 
 int 
@@ -27,7 +27,7 @@ main()
          return 1;
      }
      
-     
+    /* 
      printf("Enter the number of questions\n");
      scanf("%d", &noOfQuestions);
      
@@ -66,7 +66,16 @@ main()
      counter++;
      }
      
-     
-     fclose(ptr);
+     */
+
+	 strcpy(record.question, "");
+     strcpy(record.option_blank, "");
+	 strcpy(record.option_1, "");
+     strcpy(record.option_2, "");
+	 strcpy(record.option_3, "");				 
+	 strcpy(record.option_4, "");
+	 strcpy(record.question_answer,"");
+	 fwrite(&record, sizeof(struct quiz_format), 1, ptr);
+	 fclose(ptr);
      return 0;
 }     
